@@ -14,14 +14,14 @@ type Locale struct {
 	Message string `gorm:"not null;type:varchar(800)"`
 }
 
-//DatabaseProvider db provider
-type DatabaseProvider struct {
+//OrmProvider db provider
+type OrmProvider struct {
 	Db     *gorm.DB        `inject:""`
 	Logger *logging.Logger `inject:""`
 }
 
 //Set set locale
-func (p *DatabaseProvider) Set(lng *language.Tag, code, message string) {
+func (p *OrmProvider) Set(lng *language.Tag, code, message string) {
 	var l Locale
 	var err error
 	if p.Db.Where("lang = ? AND code = ?", lng.String(), code).First(&l).RecordNotFound() {
@@ -39,7 +39,7 @@ func (p *DatabaseProvider) Set(lng *language.Tag, code, message string) {
 }
 
 //Get get locale
-func (p *DatabaseProvider) Get(lng *language.Tag, code string) string {
+func (p *OrmProvider) Get(lng *language.Tag, code string) string {
 	var l Locale
 	if err := p.Db.Where("lang = ? AND code = ?", lng.String(), code).First(&l).Error; err != nil {
 		p.Logger.Error(err)
@@ -49,14 +49,14 @@ func (p *DatabaseProvider) Get(lng *language.Tag, code string) string {
 }
 
 //Del del locale
-func (p *DatabaseProvider) Del(lng *language.Tag, code string) {
+func (p *OrmProvider) Del(lng *language.Tag, code string) {
 	if err := p.Db.Where("lang = ? AND code = ?", lng.String(), code).Delete(Locale{}).Error; err != nil {
 		p.Logger.Error(err)
 	}
 }
 
 //Keys list locale keys
-func (p *DatabaseProvider) Keys(lng *language.Tag) []string {
+func (p *OrmProvider) Keys(lng *language.Tag) []string {
 	var keys []string
 	if err := p.Db.Model(&Locale{}).Where("lang = ?", lng.String()).Pluck("code", &keys).Error; err != nil {
 		p.Logger.Error(err)

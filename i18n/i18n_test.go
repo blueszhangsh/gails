@@ -22,7 +22,7 @@ func TestOrm(t *testing.T) {
 	}
 	db.LogMode(true)
 	db.AutoMigrate(&i18n.Locale{})
-	testProvider(t, &i18n.DatabaseProvider{Db: db, Logger: logger})
+	testProvider(t, &i18n.OrmProvider{Db: db, Logger: logger})
 }
 
 func testProvider(t *testing.T, p i18n.Provider) {
