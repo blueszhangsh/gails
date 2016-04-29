@@ -35,8 +35,7 @@ apm install seti-ui seti-syntax
 
 # Thanks
 
-- <https://github.com/julienschmidt/httprouter>
-- <https://github.com/unrolled/render>
+- <https://github.com/gin-gonic/gin>
 - <https://github.com/jinzhu/gorm>
 - <https://github.com/codegangsta/cli>
 - <https://github.com/jrallison/go-workers>

@@ -4,7 +4,6 @@ import "github.com/jinzhu/gorm"
 
 //Migration migration
 type Migration interface {
-	Up(*gorm.DB)
-	Down(*gorm.DB)
+	Migrate(*gorm.DB)
 	Seed(*gorm.DB)
 }

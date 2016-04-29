@@ -21,14 +21,26 @@ func Map(n string, o interface{}) {
 	beans.Provide(&inject.Object{Value: o, Name: n})
 }
 
-//Run main entry
-func Run(f interface{}) error {
-	if reflect.TypeOf(f).Kind() != reflect.Func {
-		return errors.New("bad type, need a func")
-	}
-
-	if err := beans.Populate(); err != nil {
-		return err
+//Loop loop beans
+func Loop(f func(string, interface{}) error) error {
+	for _, o := range beans.Objects() {
+		if e := f(o.Name, o.Value); e != nil {
+			return e
+		}
 	}
 	return nil
+}
+
+//Init build beans
+func Init() error {
+	return beans.Populate()
+}
+
+//Run main entry
+func Run(f interface{}) (interface{}, error) {
+	if reflect.TypeOf(f).Kind() != reflect.Func {
+		return nil, errors.New("bad type, need a func")
+	}
+
+	return nil, nil
 }
