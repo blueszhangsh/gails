@@ -27,10 +27,8 @@ func (p *Shell) Commands() []cli.Command {
 }
 
 func init() {
-	viper.SetDefault("database.username", "")	
+	viper.SetDefault("database.username", "")
 	viper.SetDefault("redis.url", "redis://127.0.0.1:6379/0")
-	viper.SetConfigName("config")
-	viper.AddConfigPath(".")
 
 	gails.Use(&Shell{})
 }

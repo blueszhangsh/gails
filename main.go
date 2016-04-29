@@ -10,6 +10,7 @@ import (
 
 //Main entry
 func Main(n string) error {
+
 	if err := viper.ReadInConfig(); err != nil {
 		return err
 	}
