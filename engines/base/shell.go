@@ -3,6 +3,7 @@ package base
 import (
 	"github.com/codegangsta/cli"
 	"github.com/itpkg/gails"
+	"github.com/spf13/viper"
 )
 
 //Shell base shell
@@ -26,5 +27,10 @@ func (p *Shell) Commands() []cli.Command {
 }
 
 func init() {
+	viper.SetDefault("database.username", "")	
+	viper.SetDefault("redis.url", "redis://127.0.0.1:6379/0")
+	viper.SetConfigName("config")
+	viper.AddConfigPath(".")
+
 	gails.Use(&Shell{})
 }

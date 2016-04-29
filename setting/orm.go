@@ -8,8 +8,8 @@ import (
 
 //OrmProvider provider of gorm
 type OrmProvider struct {
-	Db  *gorm.DB
-	Enc *gails.Encryptor
+	Db  *gorm.DB         `inject:""`
+	Enc *gails.Encryptor `inject:""`
 }
 
 //Set set

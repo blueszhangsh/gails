@@ -1,6 +1,7 @@
 *.swp
 *.db
 *.log
+*.toml
 
 /tmp
 

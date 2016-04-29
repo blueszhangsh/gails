@@ -38,5 +38,6 @@ apm install seti-ui seti-syntax
 - <https://github.com/gin-gonic/gin>
 - <https://github.com/jinzhu/gorm>
 - <https://github.com/codegangsta/cli>
-- <https://github.com/jrallison/go-workers>
+- <https://github.com/RichardKnop/machinery>
 - <https://github.com/facebookgo/inject>
+- <https://github.com/spf13/viper>
