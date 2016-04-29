@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	if err := gails.Main(); err != nil {
+	if err := gails.Main("demo"); err != nil {
 		log.Fatal(err)
 	}
 }
