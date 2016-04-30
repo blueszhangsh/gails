@@ -1,4 +1,4 @@
-package base
+package cms
 
 import (
 	"github.com/gin-gonic/gin"

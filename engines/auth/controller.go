@@ -12,8 +12,8 @@ func (p *Controller) Mount(*gin.Engine) {
 
 }
 
-func (p *Controller) Assets() {
-
+func (p *Controller) Assets() error {
+	return nil
 }
 
 func init() {
