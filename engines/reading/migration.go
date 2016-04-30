@@ -12,7 +12,9 @@ type Migration struct {
 }
 
 func (p *Migration) Migrate() {
-
+	db := p.Db
+	db.AutoMigrate(&Note{})
+	db.Model(&Note{}).AddUniqueIndex("idx_reading_notes_user_title", "user_id", "title")
 }
 
 func (p *Migration) Seed() {

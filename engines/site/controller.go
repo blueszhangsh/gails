@@ -1,4 +1,4 @@
-package base
+package site
 
 import (
 	"github.com/gin-gonic/gin"
