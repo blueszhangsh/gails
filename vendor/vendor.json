@@ -35,10 +35,10 @@
 			"revisionTime": "2016-04-24T12:51:41Z"
 		},
 		{
-			"checksumSHA1": "O6XJemJssTjfTesXmyhLimTeBNI=",
+			"checksumSHA1": "53rkuQL8yZu/tEc1pKwQoIvbrfo=",
 			"path": "github.com/codegangsta/cli",
-			"revision": "222ec6fb7eb8a3da24cfa4017694ba45e3f1f516",
-			"revisionTime": "2016-04-28T20:12:29Z"
+			"revision": "ff84ca213d003974c6900fdbde23332111d661c6",
+			"revisionTime": "2016-05-01T14:34:16Z"
 		},
 		{
 			"checksumSHA1": "GqkBIw2lUA6lv/jgh9WIyR0YdWY=",
@@ -93,10 +93,6 @@
 			"path": "github.com/go-sql-driver/mysql",
 			"revision": "7ebe0a500653eeb1859664bed5e48dec1e164e73",
 			"revisionTime": "2016-04-11T07:50:31Z"
-		},
-		{
-			"path": "github.com/go-sql-driver/sqlite3",
-			"revision": ""
 		},
 		{
 			"checksumSHA1": "FczzogSoZcKU3h21tCUyHzMsnBY=",
@@ -159,10 +155,10 @@
 			"revisionTime": "2016-04-26T22:13:00Z"
 		},
 		{
-			"checksumSHA1": "pb58snKrzV7htZulGDJUZBeHilI=",
+			"checksumSHA1": "hVQGM0WroR7Fy7fEIS52MXsAKEc=",
 			"path": "github.com/jinzhu/gorm",
-			"revision": "5174cc5c242a728b435ea2be8a2f7f998e15429b",
-			"revisionTime": "2016-04-04T14:49:18Z"
+			"revision": "465f8ea05b5638e508d29985eed6615402a9c2eb",
+			"revisionTime": "2016-05-02T11:34:11Z"
 		},
 		{
 			"checksumSHA1": "eECxSkwh0WmhLwaxHfkvcLOWS08=",
