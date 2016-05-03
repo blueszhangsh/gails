@@ -49,6 +49,10 @@ func (p *Shell) Commands() []cli.Command {
 			Name:    "server",
 			Aliases: []string{"s"},
 			Usage:   "start the web server",
+			Action: gails.Action(func(*cli.Context) error {
+
+				return nil
+			}),
 		},
 		{
 			Name:    "status",
@@ -57,9 +61,8 @@ func (p *Shell) Commands() []cli.Command {
 			Action: gails.Action(func(*cli.Context) error {
 				if gails.IsProduction() {
 					fmt.Println("=== CONFIG KEYS ===")
-					for _, v := range viper.AllKeys() {
-						fmt.Println(v)
-					}
+					fmt.Printf("%v\n", viper.AllKeys())
+
 				} else {
 					fmt.Println("=== CONFIG ITEMS ===")
 					for k, v := range viper.AllSettings() {

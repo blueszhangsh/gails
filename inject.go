@@ -2,6 +2,7 @@ package gails
 
 import (
 	"errors"
+	"fmt"
 	"reflect"
 
 	"github.com/facebookgo/inject"
@@ -37,10 +38,30 @@ func Init() error {
 }
 
 //Run main entry
-func Run(f interface{}) (interface{}, error) {
-	if reflect.TypeOf(f).Kind() != reflect.Func {
+func Run(f interface{}) ([]interface{}, error) {
+	ft := reflect.TypeOf(f)
+	if ft.Kind() != reflect.Func {
 		return nil, errors.New("bad type, need a func")
 	}
+	fv := reflect.ValueOf(f)
+	args := make([]reflect.Value, 0)
+	for i := 0; i < ft.NumIn(); i++ {
+		fet := ft.In(i)
+		for _, bn := range beans.Objects() {
+			if fet == reflect.TypeOf(bn.Value) {
+				args = append(args, reflect.ValueOf(bn.Value))
+				break
+			}
+		}
+		if len(args) != i+1 {
+			return nil, fmt.Errorf("can't find type %s.%s", fet.PkgPath(), fet.Name())
+		}
+	}
 
-	return nil, nil
+	res := fv.Call(args)
+	ret := make([]interface{}, 0)
+	for _, v := range res {
+		ret = append(ret, v.Interface())
+	}
+	return ret, nil
 }

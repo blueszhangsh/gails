@@ -34,12 +34,25 @@ func TestInject(t *testing.T) {
 		t.Logf("%s: %+v", n, o)
 		return nil
 	})
+	t.Log("test func without return")
 	if val, err := gails.Run(func(m1 *M1, m2 *M2, m3 *M3) {
 		t.Logf("M1: %+v", m1)
 		t.Logf("M2: %+v", m2)
 		t.Logf("M3: %+v", m3)
 	}); err == nil {
-		t.Logf("%+v", val)
+		t.Logf("returns: %+v", val)
+	} else {
+		t.Fatal(err)
+	}
+
+	t.Log("test func with returns")
+	if val, err := gails.Run(func(m1 *M1, m2 *M2, m3 *M3) (string, int) {
+		t.Logf("M1: %+v", m1)
+		t.Logf("M2: %+v", m2)
+		t.Logf("M3: %+v", m3)
+		return m3.S3, m1.I1
+	}); err == nil {
+		t.Logf("returns: %+v", val)
 	} else {
 		t.Fatal(err)
 	}
