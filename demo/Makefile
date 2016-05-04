@@ -1,6 +1,6 @@
 target=release
 
-$(target)/gails:
+$(target)/demo:
 	go build -ldflags "-s" -o $@ main.go
 
 clean:

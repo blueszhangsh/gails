@@ -8,9 +8,13 @@ import (
 
 func Logger() *logging.Logger {
 	var bkd logging.Backend
-	var err error
-	bkd, err = logging.NewSyslogBackend("gails")
-	if err != nil {
+	if IsProduction() {
+		var err error
+		bkd, err = logging.NewSyslogBackend("gails")
+		if err != nil {
+			bkd = logging.NewLogBackend(os.Stdout, "", 0)
+		}
+	} else {
 		bkd = logging.NewLogBackend(os.Stdout, "", 0)
 	}
 
@@ -19,7 +23,7 @@ func Logger() *logging.Logger {
 		logging.SetFormatter(logging.MustStringFormatter(`%{color}%{level:.4s} %{id:03x} %{color:reset} [%{shortfunc}] %{message}`))
 		logging.SetLevel(logging.INFO, "")
 	} else {
-		logging.SetFormatter(logging.MustStringFormatter(`%{color}%{level:.4s} %{id:03x} %{color:reset} [%{longfunc}] %{message}`))
+		logging.SetFormatter(logging.MustStringFormatter(`%{color}%{time:15:04:05.000} %{level:.4s} %{id:03x} %{color:reset} [%{longfunc}] %{message}`))
 	}
 	logging.SetBackend(bkd)
 	return logging.MustGetLogger("fm")
