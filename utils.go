@@ -2,6 +2,9 @@ package gails
 
 import (
 	"math/rand"
+	"os"
+	"os/exec"
+	"syscall"
 	"time"
 )
 
@@ -13,4 +16,13 @@ func RandomStr(sl int) string {
 		rst[i] = chars[rand.Intn(len(chars))]
 	}
 	return string(rst)
+}
+
+//Shell 终端命令操作
+func Shell(cmd string, args ...string) error {
+	bin, err := exec.LookPath(cmd)
+	if err != nil {
+		return err
+	}
+	return syscall.Exec(bin, append([]string{cmd}, args...), os.Environ())
 }

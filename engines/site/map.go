@@ -13,8 +13,12 @@ import (
 	"github.com/spf13/viper"
 )
 
-func Logger() *logging.Logger {
-	return logging.MustGetLogger("gails")
+type gormLogWriter struct {
+	Logger *logging.Logger
+}
+
+func (p *gormLogWriter) Print(v ...interface{}) {
+	p.Logger.Debug(v...)
 }
 
 func Database() (*gorm.DB, error) {
@@ -96,9 +100,6 @@ func (p *Engine) Map(inj *inject.Graph) error {
 		},
 		&inject.Object{
 			Value: _aes,
-		},
-		&inject.Object{
-			Value: Logger(),
 		},
 	)
 	return nil

@@ -1,0 +1,26 @@
+package gails
+
+import (
+	"os"
+
+	"github.com/op/go-logging"
+)
+
+func Logger() *logging.Logger {
+	var bkd logging.Backend
+	var err error
+	bkd, err = logging.NewSyslogBackend("gails")
+	if err != nil {
+		bkd = logging.NewLogBackend(os.Stdout, "", 0)
+	}
+
+	//`%{color}%{time:15:04:05.000} %{shortfunc} ▶ %{level:.4s} %{id:03x}%{color:reset} %{message}`
+	if IsProduction() {
+		logging.SetFormatter(logging.MustStringFormatter(`%{color}%{level:.4s} %{id:03x} %{color:reset} [%{shortfunc}] %{message}`))
+		logging.SetLevel(logging.INFO, "")
+	} else {
+		logging.SetFormatter(logging.MustStringFormatter(`%{color}%{level:.4s} %{id:03x} %{color:reset} [%{longfunc}] %{message}`))
+	}
+	logging.SetBackend(bkd)
+	return logging.MustGetLogger("fm")
+}

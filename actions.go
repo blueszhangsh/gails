@@ -8,21 +8,14 @@ import (
 	"github.com/spf13/viper"
 )
 
-func Action(f cli.ActionFunc) cli.ActionFunc {
+func cfgAction(f cli.ActionFunc) cli.ActionFunc {
 	return func(c *cli.Context) error {
 		log.Println("Begin...")
 		e := viper.ReadInConfig()
-		var inj inject.Graph
-		if e == nil {
-			for _, en := range engines {
-				if e = en.Map(&inj); e != nil {
-					break
-				}
-			}
-		}
 		if e == nil {
 			e = f(c)
 		}
+
 		if e == nil {
 			log.Println("Done!!!")
 		} else {
@@ -30,6 +23,35 @@ func Action(f cli.ActionFunc) cli.ActionFunc {
 		}
 		return e
 	}
+}
+
+func Action(f cli.ActionFunc) cli.ActionFunc {
+	return cfgAction(func(ctx *cli.Context) error {
+
+		logger := Logger()
+		var inj inject.Graph
+		if !IsProduction() {
+			inj.Logger = logger
+		}
+
+		inj.Provide(
+			&inject.Object{
+				Value: logger,
+			},
+		)
+		for _, en := range engines {
+			if er := en.Map(&inj); er != nil {
+				return er
+			}
+			inj.Provide(&inject.Object{Value: en})
+		}
+		if err := inj.Populate(); err != nil {
+			return err
+		}
+
+		return f(ctx)
+
+	})
 }
 
 func IsProduction() bool {
