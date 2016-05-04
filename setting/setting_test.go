@@ -25,7 +25,7 @@ func TestGorm(t *testing.T) {
 	db.LogMode(true)
 	db.AutoMigrate(&setting.Model{})
 
-	test(t, &setting.OrmProvider{Db: db, Enc: &gails.Encryptor{Cip: cip}})
+	test(t, &setting.OrmProvider{Db: db, Aes: &gails.Aes{Cip: cip}})
 }
 
 type S struct {

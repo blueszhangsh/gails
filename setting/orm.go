@@ -8,8 +8,8 @@ import (
 
 //OrmProvider provider of gorm
 type OrmProvider struct {
-	Db  *gorm.DB         `inject:""`
-	Enc *gails.Encryptor `inject:""`
+	Db  *gorm.DB   `inject:""`
+	Aes *gails.Aes `inject:""`
 }
 
 //Set set
@@ -19,7 +19,7 @@ func (p *OrmProvider) Set(k string, v interface{}, f bool) error {
 		return err
 	}
 	if f {
-		buf, err = p.Enc.Encode(buf)
+		buf, err = p.Aes.Encode(buf)
 		if err != nil {
 			return err
 		}
@@ -45,7 +45,7 @@ func (p *OrmProvider) Get(k string, v interface{}) error {
 		return err
 	}
 	if m.Flag {
-		if m.Val, err = p.Enc.Decode(m.Val); err != nil {
+		if m.Val, err = p.Aes.Decode(m.Val); err != nil {
 			return err
 		}
 	}

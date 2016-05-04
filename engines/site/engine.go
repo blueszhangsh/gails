@@ -1,7 +1,6 @@
 package site
 
 import (
-	"github.com/facebookgo/inject"
 	"github.com/itpkg/gails"
 	"github.com/itpkg/gails/setting"
 	"github.com/itpkg/web/i18n"
@@ -14,9 +13,6 @@ type Engine struct {
 	Logger *logging.Logger `inject:""`
 }
 
-func (p *Engine) Map(*inject.Graph) {
-
-}
 func (p *Engine) Assets() error {
 	return nil
 }

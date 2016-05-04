@@ -7,7 +7,7 @@ import (
 )
 
 type Engine interface {
-	Map(*inject.Graph)
+	Map(*inject.Graph) error
 	Mount(*gin.Engine)
 	Assets() error
 	Migrate()

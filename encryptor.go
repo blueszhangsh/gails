@@ -6,13 +6,13 @@ import (
 	"crypto/rand"
 )
 
-//Encryptor encryptor
-type Encryptor struct {
+//Aes encryptor
+type Aes struct {
 	Cip cipher.Block
 }
 
-//Encode aes encoder
-func (p *Encryptor) Encode(buf []byte) ([]byte, error) {
+//Encode encoder
+func (p *Aes) Encode(buf []byte) ([]byte, error) {
 	iv := make([]byte, aes.BlockSize)
 	if _, err := rand.Read(iv); err != nil {
 		return nil, err
@@ -24,8 +24,8 @@ func (p *Encryptor) Encode(buf []byte) ([]byte, error) {
 	return append(val, iv...), nil
 }
 
-//Decode aes decoder
-func (p *Encryptor) Decode(buf []byte) ([]byte, error) {
+//Decode  decoder
+func (p *Aes) Decode(buf []byte) ([]byte, error) {
 	bln := len(buf)
 	cln := bln - aes.BlockSize
 	ct := buf[0:cln]

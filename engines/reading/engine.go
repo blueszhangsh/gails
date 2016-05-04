@@ -12,7 +12,8 @@ type Engine struct {
 	Logger *logging.Logger `inject:""`
 }
 
-func (p *Engine) Map(*inject.Graph) {
+func (p *Engine) Map(*inject.Graph) error {
+	return nil
 
 }
 func (p *Engine) Assets() error {

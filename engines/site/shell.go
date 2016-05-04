@@ -51,21 +51,21 @@ func (p *Engine) Shell() []cli.Command {
 		},
 		{
 			Name:    "status",
-			Aliases: []string{"sts"},
+			Aliases: []string{"st"},
 			Usage:   "show status",
 			Action: gails.Action(func(*cli.Context) error {
-				// if gails.IsProduction() {
-				// 	fmt.Println("=== CONFIG KEYS ===")
-				// 	fmt.Printf("%v\n", viper.AllKeys())
-				//
-				// } else {
-				// 	fmt.Println("=== CONFIG ITEMS ===")
-				// 	for k, v := range viper.AllSettings() {
-				// 		fmt.Printf("%s = %+v\n", k, v)
-				// 	}
-				// }
+				if gails.IsProduction() {
+					fmt.Println("=== CONFIG KEYS ===")
+					fmt.Printf("%v\n", viper.AllKeys())
 
-				fmt.Println("=== BEANS ===")
+				} else {
+					fmt.Println("=== CONFIG ITEMS ===")
+					for k, v := range viper.AllSettings() {
+						fmt.Printf("%s = %+v\n", k, v)
+					}
+				}
+
+				fmt.Println("=== ENGINES ===")
 				return gails.Each(func(en gails.Engine) error {
 					vt := reflect.TypeOf(en).Elem()
 					fmt.Printf("%s.%s\n", vt.PkgPath(), vt.Name())
@@ -84,10 +84,17 @@ func init() {
 	viper.SetDefault(
 		"database",
 		map[string]interface{}{
-			"user": "postgres",
-			"name": "gails_dev",
+			"adapter": "postgres",
+			"pool": map[string]int{
+				"max_open": 100,
+				"max_idle": 5,
+			},
 			"extras": map[string]interface{}{
-				"sslmode": "disable",
+				"host":     "localhost",
+				"user":     "postgres",
+				"password": "",
+				"dbname":   "gails_dev",
+				"sslmode":  "disable",
 			},
 		},
 	)
