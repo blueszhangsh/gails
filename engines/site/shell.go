@@ -13,12 +13,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-//Shell base shell
-type Shell struct {
-}
-
-//Commands base commands
-func (p *Shell) Commands() []cli.Command {
+func (p *Engine) Shell() []cli.Command {
 	return []cli.Command{
 		{
 			Name:    "init",
@@ -59,21 +54,21 @@ func (p *Shell) Commands() []cli.Command {
 			Aliases: []string{"sts"},
 			Usage:   "show status",
 			Action: gails.Action(func(*cli.Context) error {
-				if gails.IsProduction() {
-					fmt.Println("=== CONFIG KEYS ===")
-					fmt.Printf("%v\n", viper.AllKeys())
-
-				} else {
-					fmt.Println("=== CONFIG ITEMS ===")
-					for k, v := range viper.AllSettings() {
-						fmt.Printf("%s = %+v\n", k, v)
-					}
-				}
+				// if gails.IsProduction() {
+				// 	fmt.Println("=== CONFIG KEYS ===")
+				// 	fmt.Printf("%v\n", viper.AllKeys())
+				//
+				// } else {
+				// 	fmt.Println("=== CONFIG ITEMS ===")
+				// 	for k, v := range viper.AllSettings() {
+				// 		fmt.Printf("%s = %+v\n", k, v)
+				// 	}
+				// }
 
 				fmt.Println("=== BEANS ===")
-				return gails.Loop(func(n string, o interface{}) error {
-					vt := reflect.TypeOf(o).Elem()
-					fmt.Printf("name = %s, type = %s.%s\n", n, vt.PkgPath(), vt.Name())
+				return gails.Each(func(en gails.Engine) error {
+					vt := reflect.TypeOf(en).Elem()
+					fmt.Printf("%s.%s\n", vt.PkgPath(), vt.Name())
 					return nil
 				})
 			}),
@@ -96,14 +91,12 @@ func init() {
 			},
 		},
 	)
+
 	viper.SetDefault(
 		"redis",
 		map[string]interface{}{
 			"host": "localhost",
 			"port": 6379,
 			"db":   0,
-		},
-	)
-
-	gails.Use(&Shell{})
+		})
 }

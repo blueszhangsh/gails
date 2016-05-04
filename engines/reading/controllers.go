@@ -1,4 +1,4 @@
-package team
+package reading
 
 import "github.com/gin-gonic/gin"
 

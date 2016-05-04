@@ -15,14 +15,11 @@ func Main(n string) error {
 	app.Version = "v20160429"
 	app.EnableBashCompletion = true
 	app.Commands = make([]cli.Command, 0)
-	Loop(func(n string, o interface{}) error {
-		switch o := o.(type) {
-		case Shell:
-			cmds := o.Commands()
-			app.Commands = append(app.Commands, cmds...)
-		}
-		return nil
-	})
+
+	for _, en := range engines {
+		cmds := en.Shell()
+		app.Commands = append(app.Commands, cmds...)
+	}
 
 	return app.Run(os.Args)
 }
