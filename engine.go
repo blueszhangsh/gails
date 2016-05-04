@@ -17,15 +17,7 @@ type Engine interface {
 
 var engines []Engine
 
+//Register register engine
 func Register(ens ...Engine) {
 	engines = append(engines, ens...)
-}
-
-func Each(f func(Engine) error) error {
-	for _, en := range engines {
-		if er := f(en); er != nil {
-			return er
-		}
-	}
-	return nil
 }

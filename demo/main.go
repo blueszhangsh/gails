@@ -10,6 +10,9 @@ import (
 	_ "github.com/itpkg/gails/engines/reading"
 	_ "github.com/itpkg/gails/engines/site"
 	_ "github.com/itpkg/gails/engines/team"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 )
 
 func main() {

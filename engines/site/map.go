@@ -9,8 +9,13 @@ import (
 	"github.com/garyburd/redigo/redis"
 	"github.com/itpkg/gails"
 	"github.com/jinzhu/gorm"
+	"github.com/op/go-logging"
 	"github.com/spf13/viper"
 )
+
+func Logger() *logging.Logger {
+	return logging.MustGetLogger("gails")
+}
 
 func Database() (*gorm.DB, error) {
 	//postgresql: "user=%s password=%s host=%s port=%d dbname=%s sslmode=%s"
@@ -91,6 +96,9 @@ func (p *Engine) Map(inj *inject.Graph) error {
 		},
 		&inject.Object{
 			Value: _aes,
+		},
+		&inject.Object{
+			Value: Logger(),
 		},
 	)
 	return nil
