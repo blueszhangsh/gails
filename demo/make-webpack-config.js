@@ -17,10 +17,10 @@ module.exports = function(options) {
     ];
 
     var plugins = [
-        // new webpack.ProvidePlugin({
-        //   $: "jquery",
-        //   jQuery: "jquery"
-        // }),
+        new webpack.ProvidePlugin({
+          $: "jquery",
+          jQuery: "jquery"
+        }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor'
         }),
@@ -48,7 +48,8 @@ module.exports = function(options) {
 
     var htmlOptions = {
         inject: true,
-        template: 'app/index.html'
+        template: 'app/index.html',
+        favicon:path.join(__dirname, 'app', 'favicon.png')
     };
     if (options.compress) {
         htmlOptions.minify = {
@@ -90,7 +91,7 @@ module.exports = function(options) {
         plugins.push(new HtmlWebpackPlugin(Object.assign({},
             htmlOptions, {
                 title: en,
-                filename: en + ".html",
+                filename: (en == 'site' ? 'index' : en) + ".html",
                 chunks: ['vendor', en]
             }
         )));
