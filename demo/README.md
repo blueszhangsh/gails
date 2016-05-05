@@ -1,19 +1,17 @@
 # demo
 
-# Packages
+## Build
 
 ```
-npm install -g bower webpack webpack-dev-server
+npm install
+make clean
+make
+ls release
 ```
 
-# Devel
+## Devel
 
 ```
-webpack --progress --colors --watch
-```
-
-or
-
-```
-webpack-dev-server --progress --colors
+go run main.go s
+npm start
 ```

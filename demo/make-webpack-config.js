@@ -2,8 +2,6 @@ var path = require("path");
 var webpack = require("webpack");
 var StatsPlugin = require("stats-webpack-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var BowerWebpackPlugin = require("bower-webpack-plugin");
-
 
 module.exports = function(options) {
     var entry = options.engines.reduce(function(obj, en) {
@@ -13,13 +11,25 @@ module.exports = function(options) {
 
     entry.vendor = [
         'jquery',
-        'bootstrap'
+        'bootstrap',
+
+        'react',
+        'react-dom',
+        'react-intl',
+        'react-router',
+        'react-bootstrap',        
+        'react-redux',
+        'react-router-redux',
+
+        'jwt-decode',
+        'url-parse',
+        'marked'
     ];
 
     var plugins = [
         new webpack.ProvidePlugin({
-          $: "jquery",
-          jQuery: "jquery"
+            $: "jquery",
+            jQuery: "jquery"
         }),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor'
@@ -27,13 +37,12 @@ module.exports = function(options) {
         new webpack.DefinePlugin({
             VERSION: JSON.stringify(options.version),
             API: JSON.stringify(options.api),
-        }),
-        new BowerWebpackPlugin()
+        })
     ];
 
     var loaders = [{
-        test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
+        test: /\.jsx?$/,
+        exclude: /(node_modules)/,
         loader: "babel"
     }, {
         test: /\.(png|jpg|jpeg|gif|ico|svg|ttf|woff|woff2|eot)$/,
@@ -49,7 +58,7 @@ module.exports = function(options) {
     var htmlOptions = {
         inject: true,
         template: 'app/index.html',
-        favicon:path.join(__dirname, 'app', 'favicon.png')
+        favicon: path.join(__dirname, 'app', 'favicon.png')
     };
     if (options.compress) {
         htmlOptions.minify = {
@@ -82,7 +91,7 @@ module.exports = function(options) {
     } else {
         plugins.push(new StatsPlugin('stats.json', {
             chunkModules: true,
-            exclude: [/node_modules/, /bower_components/]
+            exclude: [/node_modules/]
         }));
     }
 
