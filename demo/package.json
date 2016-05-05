@@ -1,0 +1,37 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "demo of gails",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack-production.config.js --progress --colors ",
+    "watch": "webpack --config webpack-development.config.js  --progress --colors --watch",
+    "start": "webpack-dev-server --config webpack-development.config.js --progress --colorswebpack-dev-server --progress --colors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itpkg/gails.git"
+  },
+  "keywords": [
+    "gails",
+    "demo"
+  ],
+  "author": "Jitang Zheng <jitang.zheng@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/itpkg/gails/issues"
+  },
+  "homepage": "https://github.com/itpkg/gails#readme",
+  "devDependencies": {
+    "bower-webpack-plugin": "^0.1.9",
+    "css-loader": "^0.23.1",
+    "file-loader": "^0.8.5",
+    "html-webpack-plugin": "^2.16.1",
+    "less": "^2.6.1",
+    "less-loader": "^2.2.3",
+    "stats-webpack-plugin": "^0.3.1",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "^1.14.1"
+  }
+}
