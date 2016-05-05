@@ -6,19 +6,24 @@ var BowerWebpackPlugin = require("bower-webpack-plugin");
 
 
 module.exports = function(options) {
-    var entry = {
-        vendor: [
-            'jquery',
-            'bootstrap'
-        ]
-    };
+    var entry = options.engines.reduce(function(obj, en) {
+        obj[en] = path.join(__dirname, "app", "engines", en, "main");
+        return obj
+    }, {});
+
+    entry.vendor = [
+        'jquery',
+        'bootstrap'
+    ];
 
     var plugins = [
         // new webpack.ProvidePlugin({
         //   $: "jquery",
         //   jQuery: "jquery"
         // }),
-        //new webpack.optimize.CommonsChunkPlugin({name: 'vendor'}),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor'
+        }),
         new webpack.DefinePlugin({
             VERSION: JSON.stringify(options.version),
             API: JSON.stringify(options.api),
@@ -42,7 +47,6 @@ module.exports = function(options) {
     }];
 
     var htmlOptions = {
-        title: 'DEMO',
         inject: true,
         template: 'app/index.html'
     };
@@ -80,8 +84,18 @@ module.exports = function(options) {
             exclude: [/node_modules/, /bower_components/]
         }));
     }
-    
-    plugins.push(new HtmlWebpackPlugin(htmlOptions));
+
+    options.engines.forEach(function(en) {
+
+        plugins.push(new HtmlWebpackPlugin(Object.assign({},
+            htmlOptions, {
+                title: en,
+                filename: en + ".html",
+                chunks: ['vendor', en]
+            }
+        )));
+    });
+
 
     return {
         entry: entry,
