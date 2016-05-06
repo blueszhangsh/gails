@@ -1,1 +1,3 @@
-console.log("engine site");
+import main from '../../main'
+
+main('site');

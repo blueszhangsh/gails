@@ -17,7 +17,7 @@ module.exports = function(options) {
         'react-dom',
         'react-intl',
         'react-router',
-        'react-bootstrap',        
+        'react-bootstrap',
         'react-redux',
         'react-router-redux',
 
@@ -116,6 +116,9 @@ module.exports = function(options) {
         },
         module: {
             loaders: loaders
+        },
+        resolve: {
+            extensions: ['', '.js', '.jsx'],
         },
         plugins: plugins,
         output: {
