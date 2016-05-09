@@ -2,8 +2,13 @@ target=release
 
 $(target)/demo:
 	go build -ldflags "-s" -o $@ main.go
-	npm run build
-	mv public $(target)
+
+
+reactjs:
+	cd reactjs && npm run build
+	mv reactjs/public $(target)
 
 clean:
-	-rm -r $(target) public
+	-rm -r $(target) 
+
+
