@@ -31,6 +31,7 @@ apm install seti-ui seti-syntax
 - git-plus
 - react
 - atom-beautify
+- atom-typescript
 - autosave: enabled is true
 
 # Thanks

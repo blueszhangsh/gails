@@ -13,5 +13,7 @@ ls release
 
 ```
 go run main.go s
+cd anjs2
+npm outdated
 npm start
 ```
