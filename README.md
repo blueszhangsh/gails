@@ -13,7 +13,7 @@ go get -u github.com/alecthomas/gometalinter
 go get -u github.com/kardianos/govendor
 
 go get -u github.com/itpkg/gails
-cd $GOPATH/github.com/itpkg/gails
+cd $GOPATH/src/github.com/itpkg/gails
 govendor sync
 ```
 
